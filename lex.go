@@ -218,10 +218,6 @@ func (l *lexer) literal(v string) bool {
 	return true
 }
 
-func isName(v byte) bool {
-	return v == '_' || isDigit(v) || isLetter(v)
-}
-
 func isLetter(v byte) bool {
 	return (v >= 'a' && v <= 'z') || (v >= 'A' && v <= 'Z')
 }
