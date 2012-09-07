@@ -67,11 +67,6 @@ func (l *lexer) emit(tt tokenType) {
 	l.ignore()
 }
 
-// current returns the currently read sequence of bytes.
-func (l *lexer) current() string {
-	return l.data[l.start:l.pos]
-}
-
 // next returns the next byte of data.
 func (l *lexer) next() (byte, error) {
 	if l.pos >= len(l.data) {
