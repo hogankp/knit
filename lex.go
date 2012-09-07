@@ -6,7 +6,6 @@ package knit
 import (
 	"fmt"
 	"io"
-	"strings"
 )
 
 // lexState represents a single lexer state.
@@ -32,7 +31,7 @@ func lex(data string) <-chan *token {
 	if sz := len(data); sz == 0 {
 		l.data = "\n"
 	} else if data[sz-1] != '\n' {
-		l.data = strings.ToLower(data) + "\n"
+		l.data = data + "\n"
 	}
 
 	l.out = make(chan *token)
@@ -198,6 +197,8 @@ func (l *lexer) ident() bool {
 // reader is restored to the original position.
 func (l *lexer) literal(v string) bool {
 	pos := l.pos
+	line := l.line[0]
+	col := l.col[0]
 
 	for i := range v {
 		b, err := l.next()
@@ -208,6 +209,8 @@ func (l *lexer) literal(v string) bool {
 
 		if b != v[i] {
 			l.pos = pos
+			l.line[0] = line
+			l.col[0] = col
 			return false
 		}
 	}
