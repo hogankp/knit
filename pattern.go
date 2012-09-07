@@ -85,23 +85,19 @@ loop:
 						name, tok.Line, tok.Col, tok.Data)
 				}
 
-				if sz := node.Len(); sz > 0 {
-					switch tt := node.Node(sz - 1).(type) {
-					case *Number:
-						// A number can not directly follow another number.
-						return nil, fmt.Errorf(
-							"%s:%d:%d Expected Stitch, Group or Row, found Number %q,",
-							name, tok.Line, tok.Col, tok.Data)
+				switch tt := node.Node(node.Len() - 1).(type) {
+				case *Number:
+					// A number can not directly follow another number.
+					return nil, fmt.Errorf(
+						"%s:%d:%d Expected Stitch, Group or Row, found Number %q,",
+						name, tok.Line, tok.Col, tok.Data)
 
-					case *Row:
-						// A number following a Row should be considered
-						// the row index instead of a quantifier.
-						tt.Value = int(n)
+				case *Row:
+					// A number following a Row should be considered
+					// the row index instead of a quantifier.
+					tt.Value = int(n)
 
-					default:
-						node.Append(&Number{int(n), tok.Line, tok.Col})
-					}
-				} else {
+				default:
 					node.Append(&Number{int(n), tok.Line, tok.Col})
 				}
 			}
