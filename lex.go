@@ -8,13 +8,9 @@ import (
 	"io"
 )
 
-// lexState represents a single lexer state.
-type lexState func(*lexer) lexState
-
 // lexer is a lexer for knitting pattern strings.
 type lexer struct {
 	out      chan *token // Output channel for parsed tokens.
-	state    lexState    // Current lexer state.
 	data     string      // Input pattern string.
 	line     [2]int      // Current line and line where token started.
 	col      [2]int      // Current column and column where token started.
@@ -35,7 +31,6 @@ func lex(data string) <-chan *token {
 	}
 
 	l.out = make(chan *token)
-	l.state = lexText
 	l.lineSize = 0
 	l.line[0] = 1
 	l.line[1] = 1
@@ -47,12 +42,48 @@ func lex(data string) <-chan *token {
 	go func() {
 		defer close(l.out)
 
-		for l.state != nil {
-			l.state = l.state(l)
+		for l.step() {
 		}
 	}()
 
 	return l.out
+}
+
+func (l *lexer) step() bool {
+	l.whitespace()
+
+	if l.literal("row") {
+		l.emit(tokRow)
+		return true
+	}
+
+	if l.number() {
+		return true
+	}
+
+	if l.ident() {
+		return true
+	}
+
+	c, _ := l.next()
+
+	switch c {
+	case '[':
+		l.emit(tokGroupStart)
+		return true
+	case ']':
+		l.emit(tokGroupEnd)
+		return true
+
+	// Punctuation sometimes used by users.
+	// Don't consider it an error, just ignore it.
+	case ':', ',', '.', ';':
+		l.ignore()
+		return true
+	}
+
+	l.error("Unexpected character %q", c)
+	return false
 }
 
 // emit emits an error token.
