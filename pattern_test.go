@@ -20,13 +20,11 @@ func TestPattern(t *testing.T) {
 	}
 
 	for i, str := range tests {
-		p, err := Parse(fmt.Sprintf("Pattern %d", i), str)
+		_, err := Parse(fmt.Sprintf("Pattern %d", i), str)
 
 		if err != nil {
 			t.Fatal(err)
 		}
-
-		println(p.String())
 	}
 }
 
