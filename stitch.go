@@ -41,6 +41,36 @@ func init() {
 	stitches["p"] = PurlStitch
 }
 
+// getStitchName returns the string equivalent of the given stitch kind.
+func getStitchName(k StitchKind) string {
+	switch k {
+	case UnknownStitch:
+		return "Unknown"
+	case KnitStitch:
+		return "K"
+	case PurlStitch:
+		return "P"
+	case SlipStitch:
+		return "Sl"
+	case CastOn:
+		return "Co"
+	case KnitOn:
+		return "Ko"
+	case PurlOn:
+		return "Po"
+	case BindOff:
+		return "Bo"
+	case Increase:
+		return "Inc"
+	case Decrease:
+		return "Dec"
+	case YarnOver:
+		return "Yo"
+	}
+
+	panic("unreachable")
+}
+
 // getStitchKind returns the kind of stitch represented by the
 // supplied string.
 func getStitchKind(s string) StitchKind {

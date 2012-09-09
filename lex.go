@@ -4,8 +4,10 @@
 package knit
 
 import (
+	"bytes"
 	"fmt"
 	"io"
+	"strings"
 )
 
 // lexer is a lexer for knitting pattern strings.
@@ -221,19 +223,28 @@ func (l *lexer) ident() bool {
 // literal consumes bytes for as long as they are a byte-for-byte
 // match with the given string literal. If there is no match, the
 // reader is restored to the original position.
+//
+// The match is case insensitive.
 func (l *lexer) literal(v string) bool {
+	var err error
+
 	pos := l.pos
 	line := l.line[0]
 	col := l.col[0]
+	b := make([]byte, 1)
+
+	v = strings.ToLower(v)
 
 	for i := range v {
-		b, err := l.next()
+		b[0], err = l.next()
 
 		if err != nil {
 			return false
 		}
 
-		if b != v[i] {
+		b = bytes.ToLower(b)
+
+		if b[0] != v[i] {
 			l.pos = pos
 			l.line[0] = line
 			l.col[0] = col

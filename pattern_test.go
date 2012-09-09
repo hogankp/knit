@@ -15,16 +15,18 @@ var stdout = os.Stdout
 
 func TestPattern(t *testing.T) {
 	tests := []string{
-		`Row 1 co 9 [ p 3 s 3 k 3 inc foo ] 10 bo 9`,
-		`Row 2 co9[p3s3k3incfoo]10bo9`,
+		`Row 1 co 9 [ p 3 s 3 k 3 inc foo ] 10 
+		Row 2 [p3 s3 k3 inc foo]10bo9`,
 	}
 
 	for i, str := range tests {
-		_, err := Parse(fmt.Sprintf("Pattern %d", i), str)
+		p, err := Parse(fmt.Sprintf("Pattern %d", i), str)
 
 		if err != nil {
 			t.Fatal(err)
 		}
+
+		println(p.String())
 	}
 }
 

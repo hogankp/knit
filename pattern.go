@@ -5,7 +5,9 @@ package knit
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
+	"strings"
 )
 
 // Pattern represents a single, complete knitting pattern.
@@ -114,7 +116,7 @@ func (p *Pattern) Expand(rh ReferenceHandler) error {
 		return fmt.Errorf("Expand %q: Invalid reference handler.", p.Name)
 	}
 
-	err := expand(p.Group, rh)
+	err := recursive_expand(p.Group, rh)
 
 	if err != nil {
 		return fmt.Errorf("Expand %q: %v", p.Name, err)
@@ -123,15 +125,22 @@ func (p *Pattern) Expand(rh ReferenceHandler) error {
 	return nil
 }
 
-// Unroll unrolls all 'loop' constructs.
-func (p *Pattern) Unroll() { unroll(p.Group) }
+// String returns a recreation of the original input pattern string.
+func (p *Pattern) String() string {
+	str := strings.TrimSpace(recursive_string(p.Group))
+	reg := regexp.MustCompile(`[ \t]+([0-9]+)`)
+	return reg.ReplaceAllString(str, "$1")
+}
 
-// expand recursively expands pattern references.
-func expand(list *Group, rh ReferenceHandler) error {
+// Unroll unrolls all 'loop' constructs.
+func (p *Pattern) Unroll() { recursive_unroll(p.Group) }
+
+// recursive_expand recursively expands pattern references.
+func recursive_expand(list *Group, rh ReferenceHandler) error {
 	for i, node := range list.Nodes() {
 		switch tt := node.(type) {
 		case *Group:
-			err := expand(tt, rh)
+			err := recursive_expand(tt, rh)
 
 			if err != nil {
 				return err
@@ -155,8 +164,8 @@ func expand(list *Group, rh ReferenceHandler) error {
 	return nil
 }
 
-// unroll recursively unwinds loops.
-func unroll(list *Group) {
+// recursive_unroll recursively unwinds loops.
+func recursive_unroll(list *Group) {
 	var tmp []Node
 	var elem Node
 	var i, k int
@@ -166,7 +175,7 @@ func unroll(list *Group) {
 	for i = 0; i < len(nodes); i++ {
 		switch tt := nodes[i].(type) {
 		case *Group:
-			unroll(tt)
+			recursive_unroll(tt)
 
 		case *Number:
 			if i == 0 {
@@ -206,4 +215,36 @@ func unroll(list *Group) {
 	}
 
 	list.SetNodes(nodes)
+}
+
+// recursive_string recursively recreates the original input pattern string.
+func recursive_string(list *Group) string {
+	var str []string
+
+	nodes := list.Nodes()
+
+	for i := 0; i < len(nodes); i++ {
+		switch tt := nodes[i].(type) {
+		case *Group:
+			str = append(str, "["+recursive_string(tt)+"]")
+
+		case *Reference:
+			str = append(str, tt.Name)
+
+		case *Stitch:
+			str = append(str, getStitchName(tt.Kind))
+
+		case *Row:
+			if tt.Value == 0 {
+				str = append(str, "\nRow:")
+			} else {
+				str = append(str, fmt.Sprintf("\nRow %d:", tt.Value))
+			}
+
+		case *Number:
+			str = append(str, fmt.Sprint(tt.Value))
+		}
+	}
+
+	return strings.Join(str, " ")
 }
