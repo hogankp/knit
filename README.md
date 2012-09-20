@@ -20,6 +20,7 @@ recognize and these are only a small handful of minimal
 components we need to build everything else (see below).
 All constructs are case insensitive.
 
+
 ### Rows
 
 A single pattern can define stitch sequences for multiple rows.
@@ -40,19 +41,21 @@ This pattern defines the stitching sequences for two distinct rows.
 
 * `K`: Knit stitch
 * `P`: Purl stitch
-* `S` `Sl`: Slip stitch
+* `Ks`: Knitwise Slip stitch
+* `Ps`: Purlwise Slip stitch
 * `Co`: CastOn
 * `Ko`: KnitOn
 * `Po`: PurlOn
 * `Bo`: BindOff
-* `Inc`: Increment
-* `Dec`: Decrement
+* `Inc`: Increase
+* `Dec`, `tog`: Decrease
 * `Yo`: Yarn over
 
 Stitches can be directly followed by a quantifier (see below), in order
 to determine how often they should be repeated.
 
 For example `P3 K2` means: Three Purl stitches, followed by two Knit stitches.
+
 
 ### Groupings
 
