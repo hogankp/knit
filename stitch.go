@@ -12,7 +12,8 @@ const (
 	UnknownStitch StitchKind = iota
 	KnitStitch
 	PurlStitch
-	SlipStitch
+	KnitSlip
+	PurlSlip
 	CastOn
 	KnitOn
 	PurlOn
@@ -31,8 +32,8 @@ func init() {
 	stitches["dec"] = Decrease
 	stitches["tog"] = Decrease
 	stitches["yo"] = YarnOver
-	stitches["sl"] = SlipStitch
-	stitches["s"] = SlipStitch
+	stitches["ks"] = KnitSlip
+	stitches["ps"] = PurlSlip
 	stitches["co"] = CastOn
 	stitches["bo"] = BindOff
 	stitches["ko"] = KnitOn
@@ -50,8 +51,10 @@ func getStitchName(k StitchKind) string {
 		return "K"
 	case PurlStitch:
 		return "P"
-	case SlipStitch:
-		return "Sl"
+	case KnitSlip:
+		return "Ks"
+	case PurlSlip:
+		return "Ps"
 	case CastOn:
 		return "Co"
 	case KnitOn:

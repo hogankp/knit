@@ -15,8 +15,8 @@ var stdout = os.Stdout
 
 func TestPattern(t *testing.T) {
 	tests := []string{
-		`Row 1 co 9 [ p 3 s 3 k 3 inc foo ] 10 
-		Row 2 [p3 s3 k3 inc foo]10bo9`,
+		`Row 1 co 9 [ p 3 ks 3 k 3 inc foo ] 10 
+		Row 2 [p3 ks3 k3 inc foo]10bo9`,
 	}
 
 	for i, str := range tests {
@@ -154,8 +154,10 @@ func dumpNodes(w io.Writer, list []Node, indent string) {
 				s = "Knit"
 			case PurlStitch:
 				s = "Purl"
-			case SlipStitch:
-				s = "Slip"
+			case KnitSlip:
+				s = "KnitSlip"
+			case PurlSlip:
+				s = "PurlSlip"
 			case CastOn:
 				s = "CastOn"
 			case BindOff:
