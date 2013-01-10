@@ -53,15 +53,12 @@ This pattern defines the stitching sequences for two distinct rows.
 * `Ca`: Single Cable stitch
 
 Stitches can be directly followed by a quantifier (see below), in order
-to determine how often they should be repeated.
-
-For example `P3 K2` means: Three Purl stitches, followed by two Knit stitches.
+to determine how often they should be repeated. For example `P3 K2` means:
+Three Purl stitches, followed by two Knit stitches.
 
 Stitches can be prefixed with a modifier (see below). These specify some special
-usecase for the particular stitch.
-
-For example `@P2 @K3` means: Two Purl stitches through back loop, followed by
-three Knit stitches through back loop.
+usecase for the particular stitch. For example `@P2 @K3` means: Two Purl
+stitches through back loop, followed by three Knit stitches through back loop.
 
 
 ### Groupings
