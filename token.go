@@ -12,6 +12,7 @@ const (
 	tokStitch
 	tokNumber
 	tokQuantifier
+	tokModifier
 	tokGroupStart
 	tokGroupEnd
 	tokRow
@@ -29,6 +30,8 @@ func (t tokenType) String() string {
 		return "NUMBER"
 	case tokQuantifier:
 		return "QUANT"
+	case tokModifier:
+		return "MOD"
 	case tokGroupStart:
 		return "GROUPS"
 	case tokGroupEnd:

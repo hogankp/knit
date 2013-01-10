@@ -30,6 +30,8 @@ func MustParse(name, pat string) *Pattern {
 
 // Parse parses the given input pattern.
 func Parse(name, pat string) (*Pattern, error) {
+	var mod StitchMod
+
 	p := new(Pattern)
 	p.Name = name
 	p.Group = new(Group)
@@ -63,6 +65,9 @@ loop:
 			case tokRow:
 				node.Append(&Row{tok.Line, tok.Col, 0})
 
+			case tokModifier:
+				mod |= getModKind(tok.Data)
+
 			case tokStitch:
 				st := getStitchKind(tok.Data)
 
@@ -70,7 +75,14 @@ loop:
 					// Consider this a reference to an external pattern.
 					node.Append(&Reference{tok.Data, tok.Line, tok.Col})
 				} else {
-					node.Append(&Stitch{tok.Line, tok.Col, st})
+					node.Append(&Stitch{
+						line: tok.Line,
+						col:  tok.Col,
+						Kind: st,
+						Mod:  mod,
+					})
+
+					mod = 0
 				}
 
 			case tokNumber:
@@ -232,7 +244,7 @@ func recursive_string(list *Group) string {
 			str = append(str, tt.Name)
 
 		case *Stitch:
-			str = append(str, getStitchName(tt.Kind))
+			str = append(str, tt.String())
 
 		case *Row:
 			if tt.Value == 0 {

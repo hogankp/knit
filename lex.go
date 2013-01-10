@@ -59,6 +59,10 @@ func (l *lexer) step() bool {
 		return true
 	}
 
+	if l.modifier() {
+		return true
+	}
+
 	if l.number() {
 		return true
 	}
@@ -217,6 +221,24 @@ func (l *lexer) ident() bool {
 		return true
 	}
 
+	return false
+}
+
+// modifier consumes bytes for as long as they qualify as a known modifier.
+func (l *lexer) modifier() bool {
+	b, err := l.next()
+
+	if err != nil {
+		return false
+	}
+
+	switch b {
+	case '@':
+		l.emit(tokModifier)
+		return true
+	}
+
+	l.rewind()
 	return false
 }
 
