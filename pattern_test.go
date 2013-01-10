@@ -118,7 +118,7 @@ func compareUnroll(t *testing.T, p *Pattern, stitches []StitchKind) {
 		}
 
 		if st.Kind != stitches[i] {
-			t.Fatalf("%s:%d:%d Stitch mismatch: Expected %d, have %d",
+			t.Fatalf("%s:%d:%d Stitch mismatch: Expected %s, have %s",
 				p.Name, node.Line(), node.Col(), stitches[i], st.Kind)
 		}
 	}

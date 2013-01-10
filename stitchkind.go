@@ -23,6 +23,7 @@ const (
 	P2Tog
 	P3Tog
 	P4Tog
+	Cable
 )
 
 // String returns the string equivalent of the given stitch kind.
@@ -60,6 +61,8 @@ func (k StitchKind) String() string {
 		return "P3Tog"
 	case P4Tog:
 		return "K4Tog"
+	case Cable:
+		return "Ca"
 	}
 
 	panic("unreachable")
