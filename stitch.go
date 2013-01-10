@@ -29,6 +29,7 @@ func init() {
 	stitches["k2tog"] = K2Tog
 	stitches["k3tog"] = K3Tog
 	stitches["k4tog"] = K4Tog
+	stitches["ca"] = Cable
 }
 
 // getStitchKind returns the kind of stitch represented by the
