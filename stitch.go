@@ -15,12 +15,16 @@ const (
 	KnitSlip
 	PurlSlip
 	CastOn
-	KnitOn
-	PurlOn
 	BindOff
 	Increase
 	Decrease
 	YarnOver
+	K2Tog
+	K3Tog
+	K4Tog
+	P2Tog
+	P3Tog
+	P4Tog
 )
 
 // Listing of builtin stitch types.
@@ -36,10 +40,14 @@ func init() {
 	stitches["ps"] = PurlSlip
 	stitches["co"] = CastOn
 	stitches["bo"] = BindOff
-	stitches["ko"] = KnitOn
-	stitches["po"] = PurlOn
 	stitches["k"] = KnitStitch
 	stitches["p"] = PurlStitch
+	stitches["p2tog"] = P2Tog
+	stitches["p3tog"] = P3Tog
+	stitches["p4tog"] = P4Tog
+	stitches["k2tog"] = K2Tog
+	stitches["k3tog"] = K3Tog
+	stitches["k4tog"] = K4Tog
 }
 
 // getStitchName returns the string equivalent of the given stitch kind.
@@ -57,10 +65,6 @@ func getStitchName(k StitchKind) string {
 		return "Ps"
 	case CastOn:
 		return "Co"
-	case KnitOn:
-		return "Ko"
-	case PurlOn:
-		return "Po"
 	case BindOff:
 		return "Bo"
 	case Increase:
@@ -69,6 +73,18 @@ func getStitchName(k StitchKind) string {
 		return "Dec"
 	case YarnOver:
 		return "Yo"
+	case K2Tog:
+		return "K2Tog"
+	case K3Tog:
+		return "K3Tog"
+	case K4Tog:
+		return "K4Tog"
+	case P2Tog:
+		return "P2Tog"
+	case P3Tog:
+		return "P3Tog"
+	case P4Tog:
+		return "K4Tog"
 	}
 
 	panic("unreachable")

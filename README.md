@@ -44,12 +44,12 @@ This pattern defines the stitching sequences for two distinct rows.
 * `Ks`: Knitwise Slip stitch
 * `Ps`: Purlwise Slip stitch
 * `Co`: CastOn
-* `Ko`: KnitOn
-* `Po`: PurlOn
 * `Bo`: BindOff
 * `Inc`: Increase
 * `Dec`, `tog`: Decrease
 * `Yo`: Yarn over
+* `K2Tog`, `K3Tog`, `K4Tog`: Knit N together.
+* `P2Tog`, `P3Tog`, `P4Tog`: Purl N together.
 
 Stitches can be directly followed by a quantifier (see below), in order
 to determine how often they should be repeated.
