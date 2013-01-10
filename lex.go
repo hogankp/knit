@@ -233,7 +233,7 @@ func (l *lexer) modifier() bool {
 	}
 
 	switch b {
-	case '@':
+	case '@', '^':
 		l.emit(tokModifier)
 		return true
 	}

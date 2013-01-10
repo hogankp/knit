@@ -98,9 +98,10 @@ Known modifiers include:
 
 * `@`: Denotes that the stitch is to be worked through the back loop instead
   of the front loop.
+* `^`: Knit deep (previous row).
 
-For example `@P2 @K3` means: Two Purl stitches through back loop, followed by
-three Knit stitches through back loop.
+For example `@P2 ^K3` means: Two Purl stitches through back loop, followed by
+three deep Knit stitches.
 
 
 ### Pattern Nesting

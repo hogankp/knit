@@ -17,7 +17,7 @@ func TestPattern(t *testing.T) {
 	tests := []string{
 		`Row 1 co 9 [ p 3 ks 3 k 3 inc foo ] 10 
 		Row 2 [p3 ks3 k3 inc foo]10bo9`,
-		`Co3 [@K @P]3 Bo3`,
+		`Co3 [@K @^P]3 Bo3`,
 	}
 
 	for i, str := range tests {

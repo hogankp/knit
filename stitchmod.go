@@ -9,12 +9,15 @@ type StitchMod uint8
 // Known stitch modifier flags.
 const (
 	BackLoop StitchMod = 1 << iota
+	DeepKnit
 )
 
 func (m StitchMod) String() string {
 	switch m {
 	case BackLoop:
 		return "@"
+	case DeepKnit:
+		return "^"
 	}
 
 	panic("unreachable")
@@ -25,6 +28,8 @@ func getModKind(v string) StitchMod {
 	switch v {
 	case "@":
 		return BackLoop
+	case "^":
+		return DeepKnit
 	}
 
 	return 0
