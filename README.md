@@ -51,6 +51,7 @@ This pattern defines the stitching sequences for two distinct rows.
 * `K2Tog`, `K3Tog`, `K4Tog`: Knit N together.
 * `P2Tog`, `P3Tog`, `P4Tog`: Purl N together.
 * `Ca`: Single Cable stitch
+* `Psso`: Pass second to last sitch over last one.
 
 Stitches can be directly followed by a quantifier (see below), in order
 to determine how often they should be repeated. For example `P3 K2` means:
