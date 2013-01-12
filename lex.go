@@ -232,8 +232,7 @@ func (l *lexer) modifier() bool {
 		return false
 	}
 
-	switch b {
-	case '@', '^':
+	if isMod(b) {
 		l.emit(tokModifier)
 		return true
 	}

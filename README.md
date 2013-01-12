@@ -97,6 +97,11 @@ Known modifiers include:
 * `@`: Denotes that the stitch is to be worked through the back loop instead
   of the front loop.
 * `^`: Knit deep (previous row).
+* `>`: Yarn Forward. Meaning, we pass the working yarn to the front of the work,
+  like one would do for a normal Purl stitch.
+* `<`: Yarn backward. Meaning, we pass the working yarn to the back of the work,
+  like one would do for a normal Knit stitch.
+
 
 For example `@P2 ^K3` means: Two Purl stitches through back loop, followed by
 three deep Knit stitches.
