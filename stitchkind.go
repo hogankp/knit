@@ -25,6 +25,8 @@ const (
 	P4Tog
 	Cable
 	PassOver
+	SlipSlipKnit
+	SlipSlipPurl
 )
 
 // String returns the string equivalent of the given stitch kind.
@@ -66,6 +68,10 @@ func (k StitchKind) String() string {
 		return "Ca"
 	case PassOver:
 		return "Psso"
+	case SlipSlipKnit:
+		return "Ssk"
+	case SlipSlipPurl:
+		return "Ssp"
 	}
 
 	panic("unreachable")

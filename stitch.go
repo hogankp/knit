@@ -31,6 +31,8 @@ func init() {
 	stitches["k4tog"] = K4Tog
 	stitches["ca"] = Cable
 	stitches["psso"] = PassOver
+	stitches["ssk"] = SlipSlipKnit
+	stitches["ssp"] = SlipSlipPurl
 }
 
 // getStitchKind returns the kind of stitch represented by the
